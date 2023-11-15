@@ -15,3 +15,4 @@ updated: {{DATE:YYYY-MM-DD HH:mm:ss}}
 annotation-target:
 rating: 
 ---
+%%a book template configued for the book search plugin%% 
