@@ -7,6 +7,9 @@ the template i use for default in all of my notes unless i  wanna use something 
 - the template chooses tags based on a dictionary of phrases you define in  the template.
 - the pdf should be in the attachments folder and it should have the same  name as the note. i often use it to load single chapters from a book (i use this for large  >2000 page text books so loading individual chapters in individual  small <200 page pdfs is easier on the system)
 - the note is configured for web annotations in the annotator plugin
--   in these cases it will ask for the web page url automatically 
+-   in these cases it will ask for the web page url automatically
+-   if the note is a pdf extract from the uptodate website it is configured for the specific pdf format and retrieval of the article link 
 # the rename template
 a template that turns renames your active note and capitalizes the notes name
+# excalidrawtemp.excalidraw.md template 
+a template for new excalidraw files configured to automatically load the bright life pallate from the file included 
