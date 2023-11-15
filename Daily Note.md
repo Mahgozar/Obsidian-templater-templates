@@ -62,9 +62,6 @@ from #movies
 where poster != null and poster != "{{VALUE:Poster}}"
 ```
 
-## Smoking tracker 
-![[Smoking Tracker]]
-
 ## Notes created and modified 
 ```ad-important
 title: Notes created Today
