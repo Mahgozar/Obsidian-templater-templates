@@ -1,16 +1,18 @@
 ---
-aliases: []
-creation date: <% tp.file.creation_date() %>
-modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") %>
-tags: []  
-year:
-director: 
-imdb:
-rotten-tomato:
-my-rating:
+category: "{{VALUE:typeLink}}"
+poster: "{{VALUE:Poster}}"
+imdbId: "{{VALUE:imdbID}}"
+scoreImdb: "{{VALUE:imdbRating}}"
+length: "{{VALUE:Runtime}}"
+director: {{VALUE:directorLink}}
+genre: {{VALUE:genreLinks}}
+year: {{VALUE:Year}}
+cast: {{VALUE:actorLinks}}
+plot: "{{VALUE:Plot}}"
+watchlist: {{DATE:gggg-MM-DD}}
+tags: 
+  - movies
+rating:
+watched: false
 ---
-# [[<% tp.file.title %> ]]
-## General info
-| director | year | imdb | rotten-tomato | my rating |
-| -------- | ---- | ---- | ------------- | --------- |
-|          |      |      |               |           |
+

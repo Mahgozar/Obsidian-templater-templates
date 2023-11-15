@@ -1,8 +1,17 @@
 ---
-aliases: []
-creation date: <% tp.file.creation_date() %>
-modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") %>
-annotation-target: '<% tp.file.title %>.pdf'
-year: 
-author: 
+tag: [Book]
+title: "{{title}}"
+author: [{{author}}]
+publisher: {{publisher}}
+publish: {{publishDate}}
+total: {{totalPage}}
+isbn: 
+- {{isbn10}}
+- {{isbn13}}
+cover: "![]({{coverUrl}})"
+status: unread
+created: {{DATE:YYYY-MM-DD HH:mm:ss}}
+updated: {{DATE:YYYY-MM-DD HH:mm:ss}}
+annotation-target:
+rating: 
 ---

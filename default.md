@@ -1,15 +1,14 @@
 ---
-template-version: 3.0
+template-version: 3.0.1
 aliases: [<% await tp.system.prompt("are there any aliases for this note?", " ") %>]
 creation date: <% tp.file.creation_date() %>
 modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") %>
-%%the scrpit for tags uses a dictionary of search terms to automatically tag stuff from your note's name%%
 tags: [<%* 
   tR+= tp.file.folder() + "  "
   const loweredStr = tp.file.title.toLowerCase();
   const matchingElements = [];
-  const searchTerms = [key words to look for in your note's name should come in a comma seperated list here] 
-  const response =[" tag1 ", " tag2 " note the spaces around each tag they should be there so the tags are properly seperated]
+  const searchTerms = ["diagnos","imaging", "lab", "clinical", "risk", "treatment", "management", "therapy", "therapi", "physical", "etiology", "patho" , "symptom", "approach", "differential", "ECG", "EKG", "electrocardiography"] 
+  const response =[" diagnosis ", " imaging ", " Lab_eval ", " clinical_manifestation ", " risk_factors ", " treatment "," treatment "," treatment "," treatment ", " physical_exam ", " etiology "," pathogenesis "," clinical_manifestation " , " approach ", " Differential-Diagnosis "," EKG "," EKG "," EKG "]
   for (let i = 0; i < searchTerms.length; i++)
    {
 	    if (loweredStr.includes(searchTerms[i].toLowerCase()))
@@ -20,7 +19,9 @@ tags: [<%*
     }
 %>]
 note-type: default
-linked-up: false
+cssclasses:
+  - list-cards
+  - cards
 ---
 
 <%*  

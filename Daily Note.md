@@ -1,52 +1,71 @@
 ---
 creation date: <% tp.file.creation_date() %>
-modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") %>
-tags: daily 
-note-type: daily 
-exercise: 
-running: 
+modification date: 2023-11-13T12:49:02+03:30
+tags:
+  - daily
+note-type: daily
+template version: 3.1.5
+cssclasses:
+  - cards
+  - cards-cover
+  - cards-2-3
+  - table-max
+  - list-cards
 ---
-
-%%links  
-[[<% tp.date.now("YYYY-MM-DD", -1, tp.file.title, "YYYY-MM-DD") %>|yesterday]]  
-[[<% tp.date.now("YYYY-MM-DD", 1, tp.file.title, "YYYY-MM-DD") %>|tomorrow]]  
+```ad-example
+title: Relevant Links 
+- [[<% tp.date.now("YYYY-MM-DD", -1, tp.file.title, "YYYY-MM-DD") %>|yesterday]]
+- [[<% tp.date.now("YYYY-MM-DD", 1, tp.file.title, "YYYY-MM-DD") %>|tomorrow]]
+- [[<%tp.file.title%>#Dashboard|Dashboards]]
 %%
+```
 
 # Note to Self
 
 # Dashboard
+## Currently Reading
 
-## Random Note of the Day
-%%this section loads 5 random notes and some notes that you've marked as to_read so you can see and be reminded of them every day%%
-```ad-important
-title: to read
-collapse: open
 ```dataview
-LIST
-FROM #to_read
+table without id 
+	cover  as Cover,
+	file.link as Title,
+	string(publish) as Year, 
+	"by " + author as author,
+	"⭐ " + rating as "⭐ rating",
+	status as "status"
+from #to_read
+where cover != null and cover != "{{coverUrl}}"
+```
+## Read 
+```dataview
+table without id 
+	cover as Cover,
+	file.link as Title,
+	string(publish) as Year, 
+	"by " + author as author,
+	"⭐ " + rating as "⭐ rating",
+	status as "status"
+from #book
+where cover != null and cover != "{{coverUrl}}"
+```
+## Movie list 
+```dataview
+table without id 
+	("![](" + poster + ")") as Poster,
+	file.link as Title,
+	string(year) as Year, 
+	"by " + director as Director,
+	"⭐ " + scoreImdb as "⭐ IMDB",
+	rating,
+	watched
+from #movies 
+where poster != null and poster != "{{VALUE:Poster}}"
 ```
 
-<%*
-const noOfNotes = 5
-const dv = this.DataviewAPI
-const files = await dv.tryQuery(`
-  LIST
-  FROM "specifiy the folders you want to choose your random notes from"
-`)
+## Smoking tracker 
+![[Smoking Tracker]]
 
-let randomList = []
-
-for (let i = 0; i < noOfNotes; i++) {
-  const random = Math.floor(Math.random() *
-                            (files.values.length - 1))
-  randomList.push(files.values[random])
-}
-
-tR += dv.markdownList(randomList)
-%>
-## Other Dashboards 
-
-
+## Notes created and modified 
 ```ad-important
 title: Notes created Today
 collapse: closed
@@ -66,4 +85,5 @@ table
 WHERE file.mday=date(<% tp.file.creation_date("YYYY-MM-DD") %>)
 SORT file.mday DESC 
 ```
+
 

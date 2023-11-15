@@ -1,52 +1,101 @@
-%%this is a template for loading specific PDFs, often a chapter from a book, the book-name field can be simply Article to indicate that its not a pdf from a book. note that the pdf should be in the attachments folder and it should have the same name as your note. this template uses the annotator plugin for loading pdfs. it also uses the breadcrumbs note to make any source note as an MOC%%
 ---
-page-count: <% await tp.system.prompt("how many pages?", " ") %>
-template-version: 3.8
+cssclasses:
+  - list-cards
+  - cards 
+template-version: "4.1.7"
 note-type: source_note
 aliases: []
 creation date: <% tp.file.creation_date() %>
-modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") %>
-book-name: <% await tp.system.suggester([comma seperated list of books and different sources you might want to use],[comma seperated list of books and different sources you might want to use]) %>
-annotation-target: '<% tp.file.title %>.pdf'
-read: false
-broken-down: false
-linked-up: false
-%%the scrpit for tags uses a dictionary of search terms to automatically tag stuff from your note's name%%
-tags: [source <%* 
+modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") -%>
+<%*
+let target = ""
+let flag =  await tp.system.suggester(["harrison","cecile","Robins","Catzung","article ","case-files","bates", "web","Lawrence","Learning clinical reasoning","other "],["harrison","cecile","Robins","Catzung","article ","case-files","bates","web","Lawrence","Learning clinical reasoning","other "])
+tR+= "\nbook-name: " + flag
+if (flag=="web")
+{
+	target = await tp.system.prompt("Enter the URL of the source", "")
+	tR += "\nannotation-target: " + target + "\nannotation-target-type: web"
+}
+else 
+{
+	tR+="\nannotation-target: "+tp.file.title+".pdf"
+	tR+="\npage-count: "+ await tp.system.prompt("how many pages?", " ")
+}
+tR+="\n"
+-%>
+<%*  
+let exec1 = "true"  
+while (exec1=="true")  
+{  
+	exec1 = await tp.system.suggester(["Yes", "No"], ["true", "false"],false ,"do you want to change the initial status of this source?(read, broken down or linked up)")  
+	if (exec1=="true")  
+	{  
+		read = await tp.system.suggester(["Yes", "No"], ["true", "false"],false ,"have you already read this source?")
+		tR+= "read: " + read + "\n"
+		broken = await tp.system.suggester(["Yes", "No"], ["true", "false"],false ,"have you already broken down this sourcce?")
+		tR+= "broken-down: " + broken + "\n"
+	}  
+	else 
+	{  
+		tR+= "read: false\nbroken-down: false\n"
+	}  
+}  
+-%>
+tags: [source, <%* 
   tR+= tp.file.folder() + "  "
   const loweredStr = tp.file.title.toLowerCase();
   const matchingElements = [];
-  const searchTerms = [key words to look for in your note's name should come in a comma seperated list here] 
-  const response =[" tag1 ", " tag2 " note the spaces around each tag they should be there so the tags are properly seperated]
+  const searchTerms = ["diagnos","imaging", "lab", "clinical", "risk", "treatment", "management", "therapy", "therapi", "physical", "etiology", "patho" , "symptom", "approach", "differential"] 
+  const response =[" diagnosis ", " imaging ", " Lab_eval ", " clinical_manifestation ", " risk_factors ", " treatment "," treatment "," treatment "," treatment ", " physical_exam ", " etiology "," pathogenesis "," clinical_manifestation " , " approach ", " Differential-Diagnosis "]
   for (let i = 0; i < searchTerms.length; i++)
    {
 	    if (loweredStr.includes(searchTerms[i].toLowerCase()))
 	    {
-		    tR+=response[i]
+		    tR+=response[i] +", "
     
 	    }
     }
-%>]
-status: undone 
-BC-link-note: extracted-from
+-%>]
+BC-link-note: Child 
+undone-part: all of it
 ---
 
-%%  
-link to pdf: [[<% tp.file.title %>.pdf ]] open note in new tab: [[<% tp.file.title %>]]  
-%% 
-
-<%*  
+```ad-example
+title: Important links
+<%* 
+tR+="\n"
 let exec = "true"  
-while (exec=="true" || exec=="PDF")  
-{  
-	exec = await tp.system.suggester(["Yes", "No","YES PDF"], ["true", "false","PDF"],false ,"do you want to add additional resources?")  
-	if (exec=="PDF")  
+if (flag=="web")
+{
+	tR+="[link to source]("+target+")\n"
+	while (exec=="true" || exec=="PDF")  
 	{  
-		tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + ".pdf]]\n"  
-	}  
-	else if (exec == "true")  
+		exec = await tp.system.suggester(["Yes", "No","YES PDF"], ["true", "false","PDF"],false ,"do you want to add additional resources?")  
+		if (exec=="PDF")  
+		{  
+			tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + ".pdf]]\n"  
+		}  
+		else if (exec == "true")  
+		{  
+			tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + "]]\n"  
+		}  
+	}
+}
+else 
+{
+	tR+="link to pdf: [["+tp.file.title+".pdf ]]\nopen note in new tab [["+tp.file.title+"]]\n"  
+	while (exec=="true" || exec=="PDF")  
 	{  
-		tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + "]]\n"  
-	}  
-}  
+		exec = await tp.system.suggester(["Yes", "No","YES PDF"], ["true", "false","PDF"],false ,"do you want to add additional resources?")  
+		if (exec=="PDF")  
+		{  
+			tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + ".pdf]]\n"  
+		}  
+		else if (exec == "true")  
+		{  
+			tR+= "related::[[" + (await tp.system.suggester((item) => item.basename, app.vault.getFiles())).basename + "]]\n"  
+		}  
+	}
+}	  
 %>
+```
