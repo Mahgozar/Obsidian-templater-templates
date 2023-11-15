@@ -2,21 +2,27 @@
 cssclasses:
   - list-cards
   - cards 
-template-version: "4.1.7"
+template-version: "4.1.8"
 note-type: source_note
 aliases: []
 creation date: <% tp.file.creation_date() %>
 modification date: <% tp.file.last_modified_date("dddd Do MMMM YYYY HH:mm:ss") -%>
 <%*
 let target = ""
-let flag =  await tp.system.suggester(["harrison","cecile","Robins","Catzung","article ","case-files","bates", "web","Lawrence","Learning clinical reasoning","other "],["harrison","cecile","Robins","Catzung","article ","case-files","bates","web","Lawrence","Learning clinical reasoning","other "])
+let flag =  await tp.system.suggester(["harrison","cecile","Robins","Catzung","article ","case-files","bates", "web","Lawrence","Learning clinical reasoning","other "],["harrison","cecile","Robins","Catzung","article ","case-files","bates","web","Lawrence","Learning clinical reasoning","UpToDate","other"])
 tR+= "\nbook-name: " + flag
 if (flag=="web")
 {
 	target = await tp.system.prompt("Enter the URL of the source", "")
 	tR += "\nannotation-target: " + target + "\nannotation-target-type: web"
-}
-else 
+} 
+else if (flag=="UpToDate")
+{
+	tR+="\nlink: " + await tp.system.prompt("what is the URL", "") 
+	tR+="\nannotation-target: "+ tp.file.title + " - UpToDate.pdf"
+	tR+="\npage-count: "+ await tp.system.prompt("how many pages?", " ")
+} 
+else
 {
 	tR+="\nannotation-target: "+tp.file.title+".pdf"
 	tR+="\npage-count: "+ await tp.system.prompt("how many pages?", " ")
