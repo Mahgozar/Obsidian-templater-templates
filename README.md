@@ -8,7 +8,8 @@ the template i use for default in all of my notes unless i  wanna use something 
 - the pdf should be in the attachments folder and it should have the same  name as the note. i often use it to load single chapters from a book (i use this for large  >2000 page text books so loading individual chapters in individual  small <200 page pdfs is easier on the system)
 - the note is configured for web annotations in the annotator plugin
 -   in these cases it will ask for the web page url automatically
--   if the note is a pdf extract from the uptodate website it is configured for the specific pdf format and retrieval of the article link 
+-   if the note is a pdf extract from the uptodate website it is configured for the specific pdf format and retrieval of the article link
+-   update: i added the option to give the template the name of the pdf file in case you want it to have a different name than the name of your note 
 # the rename template
 - a template that turns renames your active note and capitalizes the notes name
 # excalidrawtemp.excalidraw.md template 
