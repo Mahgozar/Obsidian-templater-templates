@@ -5,11 +5,8 @@ the template i use for default in all of my notes unless i  wanna use something 
 - this is a template i use for loading pdfs and annotating them using the annotator plugin.
 - it uses the breadcrumbs plugin to define any outgoing link from  this note as a child to this note.
 - the template chooses tags based on a dictionary of phrases you define in  the template.
-- the pdf should be in the attachments folder and it should have the same  name as the note. i often use it to load single chapters from a book (i use this for large  >2000 page text books so loading individual chapters in individual  small <200 page pdfs is easier on the system)
-- the note is configured for web annotations in the annotator plugin
--   in these cases it will ask for the web page url automatically
--   if the note is a pdf extract from the uptodate website it is configured for the specific pdf format and retrieval of the article link
--   update: i added the option to give the template the name of the pdf file in case you want it to have a different name than the name of your note 
+- the template asks for the formating of the pdf based on the book or source name that you've defined in a dictionary. most books in the current example dont require any special formating of the name and only require the rame of the pdf to be the same as the note. on others like pdfs from the UptoDate source require a specific naming convention for the pdf so they are seperated in a switch
+- in case you dont want to use any specific naming convention and just want to add the name of the pdf it will ask you and it will add the new name instead 
 # the rename template
 - a template that turns renames your active note and capitalizes the notes name
 # excalidrawtemp.excalidraw.md template 
